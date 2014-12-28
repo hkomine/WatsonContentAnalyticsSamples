@@ -7,5 +7,8 @@
 	<classpathentry kind="var" path="HTTPCOMPONENTS_HOME/lib/httpcore-4.3.3.jar"/>
 	<classpathentry kind="var" path="HTTPCOMPONENTS_HOME/lib/httpmime-4.3.6.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="var" path="ABDERA_HOME/abdera-1.1.2.jar"/>
+	<classpathentry kind="var" path="ABDERA_HOME/lib/axiom-api-1.2.10.jar"/>
+	<classpathentry kind="var" path="ABDERA_HOME/lib/axiom-impl-1.2.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

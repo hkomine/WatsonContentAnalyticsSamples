@@ -13,6 +13,7 @@ public class DocumentRemove {
 	
 	private static String METHOD_REMOVE = "GET";
 	private static final String PATH_REMOVE = "/api/v20/admin/collections/indexer/document/remove";
+	private static final int DEFAULT_ADMINPORT = 8390;
 	
 	private String hostname;
 	private int port;
@@ -32,6 +33,9 @@ public class DocumentRemove {
 		// Read server connection info
 		String hostname = argsUtil.getString("hostname");
 		int port = argsUtil.getInt("port");
+		if (0 == port) {
+			port = DEFAULT_ADMINPORT;
+		}
 		String username = argsUtil.getString("username");
 		String password = argsUtil.getString("password");
 		String collection = argsUtil.getString("collection");
@@ -90,7 +94,6 @@ public class DocumentRemove {
 	
 	private static boolean validateArgs(ArgsUtil argsUtil) {
 		if (!argsUtil.isExist("hostname")) return false;
-		if (!argsUtil.isExist("port")) return false;
 		if (!argsUtil.isExist("collection")) return false;
 		if (!argsUtil.isExist("username")) return false;
 		if (!argsUtil.isExist("password")) return false;
@@ -101,7 +104,7 @@ public class DocumentRemove {
 	private static void printUsage() {
 		System.out.printf("Usage: %s -<key> <value>%n", DocumentRemove.class.getSimpleName());
 		System.out.printf("    -%-10s : %s%n", "hostname", "Host name for Watso Content Analytics.");
-		System.out.printf("    -%-10s : %s%n", "port", "Admin port.");
+		System.out.printf("    -%-10s : %s%n", "port", "<Optional> Admin port. Default port is 8390");
 		System.out.printf("    -%-10s : %s%n", "collection", "WCA collection a document to be added to.");
 		System.out.printf("    -%-10s : %s%n", "username", "WCA Administrator username.");
 		System.out.printf("    -%-10s : %s%n", "password", "Password for the user.");
