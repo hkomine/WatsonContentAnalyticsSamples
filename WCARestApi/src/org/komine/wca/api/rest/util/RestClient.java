@@ -131,13 +131,18 @@ public class RestClient {
 		return httprequest;
 	}
 
-	public static String buildUrl(String hostname,
+	@SuppressWarnings("unused")
+	private static String buildUrl(String hostname,
 								int port,
 								String path,
 								Map<String, String> params) throws URISyntaxException, MalformedURLException {
 
 		// Create URIBuilder with base info
-		URIBuilder builder = new URIBuilder().setScheme("http").setHost(hostname).setPort(port).setPath(path);
+		URIBuilder builder = new URIBuilder()
+				.setScheme("http")
+				.setHost(hostname)
+				.setPort(port)
+				.setPath(path);
 
 		// Add URL parameters if required.
 		if (null != params) {
@@ -180,7 +185,7 @@ public class RestClient {
 		return buf.toString();
 	}
 
-	public static void debugHttpRequest(HttpRequestBase httpRequest) {
+	private static void debugHttpRequest(HttpRequestBase httpRequest) {
 		System.out.println("[Debug] HTTP request info:");
 		if (httpRequest instanceof HttpGet) {
 			System.out.println("[Debug] Method = GET");
