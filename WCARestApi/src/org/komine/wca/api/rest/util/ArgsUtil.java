@@ -36,7 +36,17 @@ public class ArgsUtil {
 	}
 	
 	public int getInt(String key) {
-		return Integer.parseInt(params.get(key.toLowerCase()));
+		try {
+			String value = params.get(key.toLowerCase());
+			if ((null != value) && (!value.isEmpty())) {
+				return Integer.parseInt(params.get(key.toLowerCase()));
+			} else {
+				return 0;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 	
 	public boolean isExist(String key) {

@@ -62,7 +62,7 @@ public class FieldAdd {
 		this.collection = collection;
 	}
 	
-	private String addField(String name, boolean returnable, boolean fieldSearchable, boolean freeTextSearchable) throws ClientProtocolException, URISyntaxException, IOException {
+	public String addField(String name, boolean returnable, boolean fieldSearchable, boolean freeTextSearchable) throws ClientProtocolException, URISyntaxException, IOException {
 		// Check secutiryToken
 		if ((null == securityToken) || (securityToken.isEmpty())) {
 			securityToken = getSecurityToken();

@@ -67,7 +67,7 @@ public class CollectionAdd {
 		this.password = password;
 	}
 	
-	private String addCollection(String name, String id, String type) throws ClientProtocolException, URISyntaxException, IOException {
+	public String addCollection(String name, String id, String type) throws ClientProtocolException, URISyntaxException, IOException {
 		// Check secutiryToken
 		if ((null == securityToken) || (securityToken.isEmpty())) {
 			securityToken = getSecurityToken();
@@ -85,7 +85,8 @@ public class CollectionAdd {
 			params.put("id", id);
 		}
 		
-		if ((0 == type.compareToIgnoreCase("Search")) || (0 == type.compareToIgnoreCase("Analytics"))) {
+		if ( (null != type) &&
+		        ((0 == type.compareToIgnoreCase("Search")) || (0 == type.compareToIgnoreCase("Analytics"))) ) {
 			params.put("type", type);
 		}
 
@@ -94,7 +95,7 @@ public class CollectionAdd {
 		return result;
 	}
 	
-	private String startIndex(String id) throws ClientProtocolException, URISyntaxException, IOException {
+	public String startIndex(String id) throws ClientProtocolException, URISyntaxException, IOException {
 		// Check secutiryToken
 		if ((null == securityToken) || (securityToken.isEmpty())) {
 			securityToken = getSecurityToken();
@@ -113,7 +114,7 @@ public class CollectionAdd {
 		return result;
 	}
 	
-	private String startSearch(String id) throws ClientProtocolException, URISyntaxException, IOException {
+	public String startSearch(String id) throws ClientProtocolException, URISyntaxException, IOException {
 		// Check secutiryToken
 		if ((null == securityToken) || (securityToken.isEmpty())) {
 			securityToken = getSecurityToken();

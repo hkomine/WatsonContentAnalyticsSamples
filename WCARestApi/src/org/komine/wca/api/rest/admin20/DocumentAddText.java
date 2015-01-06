@@ -71,7 +71,7 @@ public class DocumentAddText {
 		this.collection = collection;
 	}
 	
-	private String addDocument(String documentId, String title, String content, String language) throws ClientProtocolException, URISyntaxException, IOException {
+	public String addDocument(String documentId, String title, String content, String language) throws ClientProtocolException, URISyntaxException, IOException {
 		// Check secutiryToken
 		if ((null == securityToken) || (securityToken.isEmpty())) {
 			securityToken = getSecurityToken();
