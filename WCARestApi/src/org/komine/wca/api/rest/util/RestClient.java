@@ -38,7 +38,7 @@ import org.apache.http.util.EntityUtils;
 
 public class RestClient {
 
-	public static Log log = LogFactory.getLog(RestClient.class); 
+	private static Log log = LogFactory.getLog(RestClient.class); 
 
 	public static String makeRestRequest(final String method,
 			final String host,
