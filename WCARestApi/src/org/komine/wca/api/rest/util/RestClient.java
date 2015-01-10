@@ -1,6 +1,7 @@
 package org.komine.wca.api.rest.util;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,6 +13,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -31,7 +34,7 @@ import org.apache.http.util.EntityUtils;
 
 public class RestClient {
 
-	private static final boolean DEBUG = true;
+	public static Log log = LogFactory.getLog(RestClient.class); 
 
 	public static String makeRestRequest(final String method,
 			final String host,
@@ -45,26 +48,25 @@ public class RestClient {
 
 		HttpRequestBase httpRequest = buildHttpMethodForAPI(method, host, port,
 				path, urlParams, httpEntity, content, contentType);
-		if (DEBUG) {
-			System.out.println("[Debug] Method: " + httpRequest.getMethod());
-			System.out.println("[Debug] URI: " + httpRequest.getURI().toASCIIString());
-		}
+		
+		log.info(String.format("Making a REST request. method=%s, uri=%s",
+				httpRequest.getMethod(),httpRequest.getURI().toASCIIString()));
 
 		return makeRestRequest(httpRequest);
 	}
 
 	public static String makeRestRequest(HttpRequestBase httpRequest)
 			throws ClientProtocolException, IOException {
-		if (DEBUG) {
+		
+		if (log.isDebugEnabled()) {
 			debugHttpRequest(httpRequest);
 		}
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		CloseableHttpResponse response = httpclient.execute(httpRequest);
 		StatusLine statusLine = response.getStatusLine();
-		System.out.println("HTTP Status code = " + statusLine.getStatusCode()
-					+ ", Status message: " + statusLine.getReasonPhrase());
-
+		log.info(String.format("Response received. StatusCode=%s, ReasonPhrase=%s",
+				statusLine.getStatusCode(), statusLine.getReasonPhrase()));
 
 		String result = null;
 
@@ -77,10 +79,10 @@ public class RestClient {
 				} else {
 					BufferedHttpEntity bufEntity = new BufferedHttpEntity(entity);
 					InputStream input = bufEntity.getContent();
-					BufferedReader br = new BufferedReader(new InputStreamReader(input, "UTF-8"));
+					BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF-8"));
 					String line = null;
 					StringBuffer buf = new StringBuffer();
-					while ((line = br.readLine()) != null) {
+					while ((line = reader.readLine()) != null) {
 						buf.append(line);
 					}
 					result = buf.toString();
@@ -89,8 +91,7 @@ public class RestClient {
 		} finally {
 			response.close();
 		}
-		if (DEBUG)
-			System.out.println("[DEBUG] Result: " + result);
+			log.info(String.format("Response: %s", result));
 
 		return result;
 	}
@@ -181,29 +182,30 @@ public class RestClient {
 				buf.append(key).append("=").append(value);
 			}
 		}
-
 		return buf.toString();
 	}
 
 	private static void debugHttpRequest(HttpRequestBase httpRequest) {
-		System.out.println("[Debug] HTTP request info:");
+		log.debug("HTTP request info:");
 		if (httpRequest instanceof HttpGet) {
-			System.out.println("[Debug] Method = GET");
-			System.out.println("[Debug] URL = " + httpRequest.getURI());
+			log.debug("Method=GET");
+			log.debug("URL=" + httpRequest.getURI());
 		} else if (httpRequest instanceof HttpPost) {
-			System.out.println("[Debug] Method = POST");
+			log.debug("Method = POST");
 
 			HttpPost httpPost = (HttpPost) httpRequest;
 			HttpEntity entity = httpPost.getEntity();
 			if (null != entity) {
-				System.out.println("[Debug] Entity:");
 				try {
-					entity.writeTo(System.out);
+					ByteArrayOutputStream out = new ByteArrayOutputStream((int)entity.getContentLength());
+					entity.writeTo(out);
+					String entityContent = new String(out.toByteArray());
+					log.debug(String.format("Entity:%n%s",entityContent));
 				} catch (IOException e) {
-					e.printStackTrace();
+					log.fatal(e);
 				}
 			} else {
-				System.out.println("[Debug] Entity is empty.");
+				log.debug("Entity is empty.");
 			}
 		}
 	}
