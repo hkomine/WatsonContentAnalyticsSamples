@@ -13,7 +13,7 @@ import org.komine.wca.api.rest.util.RestClient;
 
 public class DocumentAddText {
 
-	private static String METHOD_REMOVE = "POST";
+	private static String METHOD_ADDTEXT = "POST";
 	private static final String PATH_ADDTEXT = "/api/v20/admin/collections/indexer/document/add/text";
 	private static final int DEFAULT_ADMINPORT = 8390;
 
@@ -99,7 +99,7 @@ public class DocumentAddText {
         HttpEntity entity = mpEntityBuilder.build();
 
         // Make a HTTP request
-		String result = RestClient.makeRestRequest(METHOD_REMOVE, hostname, port, PATH_ADDTEXT, null, entity, null, null);
+		String result = RestClient.makeRestRequest(METHOD_ADDTEXT, hostname, port, PATH_ADDTEXT, null, entity, null, null);
 		return result;
 	}
 	

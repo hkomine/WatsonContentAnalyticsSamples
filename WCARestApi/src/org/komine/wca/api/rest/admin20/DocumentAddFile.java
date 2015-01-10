@@ -14,7 +14,7 @@ import org.komine.wca.api.rest.util.RestClient;
 
 public class DocumentAddFile {
 	
-	private static String METHOD_REMOVE = "POST";
+	private static String METHOD_ADDFILE = "POST";
 	private static final String PATH_ADDFILE = "/api/v20/admin/collections/indexer/document/add/file";
 	private static final int DEFAULT_ADMINPORT = 8390;
 	
@@ -101,7 +101,7 @@ public class DocumentAddFile {
         HttpEntity entity = mpEntityBuilder.build();
         
         // Make a HTTP request
-        String result = RestClient.makeRestRequest(METHOD_REMOVE, hostname, port, PATH_ADDFILE, null, entity, null, null);
+        String result = RestClient.makeRestRequest(METHOD_ADDFILE, hostname, port, PATH_ADDFILE, null, entity, null, null);
 		return result;
 	}
 	
