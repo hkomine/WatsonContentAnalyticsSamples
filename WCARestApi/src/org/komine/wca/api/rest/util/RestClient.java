@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -17,8 +18,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -30,6 +33,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 public class RestClient {
@@ -107,24 +111,38 @@ public class RestClient {
 														throws MalformedURLException, URISyntaxException, UnsupportedEncodingException {
 		HttpRequestBase httprequest;
 		if ("POST".equals(method)) {
-			HttpPost httppost = new HttpPost(buildUriSimple(host, port, path,null));
-
-			if ((null != content) && (!content.isEmpty())
-					&& (null != contentType)) {
-				httppost.setEntity(new StringEntity(content, contentType));
-			}
-
-			if (null != httpEntity) {
-				httppost.setEntity(httpEntity);
-			}
+			HttpPost httppost;
+			
+            if (null != httpEntity) {
+                httppost = new HttpPost(buildUrlSimple(host, port, path, params));
+                httppost.setEntity(httpEntity);
+                if ((null != content) && (!content.isEmpty())) {
+                	log.warn(String.format(
+                            "Content was ignored because httpEntity is specidfied. url=%s",
+                            httppost.getURI().toASCIIString()));
+                }
+            } else if ((null != content) && (!content.isEmpty())
+                    && (null != contentType)) {
+                httppost = new HttpPost(buildUrlSimple(host, port, path, params));
+                httppost.setEntity(new StringEntity(content, contentType));
+            } else {
+                ArrayList<NameValuePair> postParams = new ArrayList<NameValuePair>();
+                Iterator<String> it = params.keySet().iterator();
+                while (it.hasNext()) {
+                    String key = it.next();
+                    postParams.add(new BasicNameValuePair(key, params.get(key)));
+                }
+                httppost = new HttpPost(buildUrl(host, port, path, null));
+                httppost.setEntity(new UrlEncodedFormEntity(postParams, Consts.UTF_8));
+            }
 
 			httprequest = httppost;
 			
 		} else if ("GET".equals(method)) {
-			httprequest = new HttpGet(buildUriSimple(host, port, path, params));
+			httprequest = new HttpGet(buildUrlSimple(host, port, path, params));
 			
 		} else if ("DELETE".equals(method)) {
-			httprequest = new HttpDelete(buildUriSimple(host, port, path,params));
+			httprequest = new HttpDelete(buildUrlSimple(host, port, path,params));
 			
 		} else {
 			throw new IllegalArgumentException("Unexpected method is specified: " + method + ".");
@@ -132,7 +150,6 @@ public class RestClient {
 		return httprequest;
 	}
 
-	@SuppressWarnings("unused")
 	private static String buildUrl(String hostname,
 								int port,
 								String path,
@@ -161,7 +178,7 @@ public class RestClient {
 		return uri.toASCIIString();
 	}
 
-	private static String buildUriSimple(String hostname,
+	private static String buildUrlSimple(String hostname,
 										int port,
 										String path,
 										Map<String, String> params) {
