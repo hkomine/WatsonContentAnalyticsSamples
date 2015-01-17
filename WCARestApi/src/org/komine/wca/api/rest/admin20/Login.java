@@ -22,7 +22,7 @@ public class Login {
 		params.put("username", username);
 		params.put("password", password);
 		
-		String result = RestClient.makeRestRequest(METHOD_LOGIN, hostname, port, PATH_LOGIN, params, null, null, null);
+		String result = RestClient.makeRestRequest(METHOD_LOGIN, hostname, port, PATH_LOGIN, params, null);
 		String securityToken = XmlParser.getSecurityTokenFromString(result);
 
 		return securityToken;

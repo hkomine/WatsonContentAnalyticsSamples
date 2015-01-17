@@ -2,7 +2,6 @@ package org.komine.wca.api.rest.admin20;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 
 import org.apache.http.client.ClientProtocolException;
@@ -75,9 +74,9 @@ public class DocumentRemove {
 		 
 		params.put("securityToken", securityToken);
 		params.put("collection", collection);
-		params.put("documentId", URLEncoder.encode(documentId,"UTF-8"));
+		params.put("documentId", documentId);
 		 
-		String result = RestClient.makeRestRequest(METHOD_REMOVE, hostname, port, PATH_REMOVE, params, null, null, null);
+		String result = RestClient.makeRestRequest(METHOD_REMOVE, hostname, port, PATH_REMOVE, params, null);
 		return result;
 	}
 	

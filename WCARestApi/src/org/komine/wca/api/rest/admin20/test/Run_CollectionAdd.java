@@ -15,7 +15,7 @@ public class Run_CollectionAdd {
 	    "-port",       Integer.toString(PORT),
 	    "-username",   USERNAME,
 	    "-password",   PASSWORD,
-	    "-name",       "Ç†Ç¢Ç§Ç¶Ç®",
+	    "-name",       "„ÅÇ„ÅÑ„ÅÜ„Åà„Åä Collection",
 	    "-id",         "my_collection",
 	    "-type",       "Analytics",
 	};

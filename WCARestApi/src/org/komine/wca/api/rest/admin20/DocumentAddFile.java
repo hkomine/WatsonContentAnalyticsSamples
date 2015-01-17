@@ -101,7 +101,7 @@ public class DocumentAddFile {
         HttpEntity entity = mpEntityBuilder.build();
         
         // Make a HTTP request
-        String result = RestClient.makeRestRequest(METHOD_ADDFILE, hostname, port, PATH_ADDFILE, null, entity, null, null);
+        String result = RestClient.makeRestRequest(METHOD_ADDFILE, hostname, port, PATH_ADDFILE, null, entity);
 		return result;
 	}
 	

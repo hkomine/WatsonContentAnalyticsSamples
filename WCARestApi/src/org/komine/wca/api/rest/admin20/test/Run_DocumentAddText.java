@@ -18,9 +18,9 @@ public class Run_DocumentAddText {
 	    "-collection", COLLECTION,
 	    "-username",   USERNAME,
 	    "-password",   PASSWORD,
-	    "-documentid", "‚ ‚Ά‚¤‚¦‚¨",
-	    "-title",      "‚ ‚Ά‚¤‚¦‚¨•¶‘‚Μƒ^ƒCƒgƒ‹",
-	    "-content",    "‚ ‚Ά‚¤‚¦‚¨•¶‘‚Μ–{•¶",
+	    "-documentid", "γ‚γ„γ†γγ",
+	    "-title",      "γ‚γ„γ†γγζ–‡ζ›Έγ®γ‚Ώγ‚¤γƒγƒ«",
+	    "-content",    "γ‚γ„γ†γγζ–‡ζ›Έγ®ζ¬ζ–‡",
 	    "-language",   LANGUAGE,
 	};
 	

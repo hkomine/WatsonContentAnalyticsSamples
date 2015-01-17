@@ -91,7 +91,7 @@ public class CollectionAdd {
 		}
 
         // Make a HTTP request
-		String result = RestClient.makeRestRequest(METHOD_COLLECTION_ADD, hostname, port, PATH_COLLECTION_ADD, params, null, null, null);
+		String result = RestClient.makeRestRequest(METHOD_COLLECTION_ADD, hostname, port, PATH_COLLECTION_ADD, params, null);
 		return result;
 	}
 	
@@ -110,7 +110,7 @@ public class CollectionAdd {
 		params.put("collection", id);
 		
         // Make a HTTP request
-		String result = RestClient.makeRestRequest(METHOD_COLLECTION_INDEXER_START, hostname, port, PATH_COLLECTION_INDEXER_START, params, null, null, null);
+		String result = RestClient.makeRestRequest(METHOD_COLLECTION_INDEXER_START, hostname, port, PATH_COLLECTION_INDEXER_START, params, null);
 		return result;
 	}
 	
@@ -129,7 +129,7 @@ public class CollectionAdd {
 		params.put("collection", id);
 		
         // Make a HTTP request
-		String result = RestClient.makeRestRequest(METHOD_COLLECTION_SEARCH_START, hostname, port, PATH_COLLECTION_SEARCH_START, params, null, null, null);
+		String result = RestClient.makeRestRequest(METHOD_COLLECTION_SEARCH_START, hostname, port, PATH_COLLECTION_SEARCH_START, params, null);
 		return result;
 	}
 	

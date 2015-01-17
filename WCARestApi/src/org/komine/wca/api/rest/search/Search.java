@@ -2,7 +2,6 @@ package org.komine.wca.api.rest.search;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,9 +9,9 @@ import java.util.LinkedList;
 import org.apache.http.client.ClientProtocolException;
 import org.komine.wca.api.rest.admin20.DocumentAddText;
 import org.komine.wca.api.rest.util.ArgsUtil;
-import org.komine.wca.api.rest.util.WCADocument;
 import org.komine.wca.api.rest.util.AtomParser;
 import org.komine.wca.api.rest.util.RestClient;
+import org.komine.wca.api.rest.util.WCADocument;
 
 public class Search {
 
@@ -71,9 +70,9 @@ public class Search {
 		HashMap<String, String> params = new HashMap<String, String>();
 		
 		params.put("collection", collection);
-		params.put("query", URLEncoder.encode(query,"UTF-8"));
+		params.put("query", query);
 		 
-		String result = RestClient.makeRestRequest(METHOD_SEARCH, hostname, port, PATH_SEARCH, params, null, null, null);
+		String result = RestClient.makeRestRequest(METHOD_SEARCH, hostname, port, PATH_SEARCH, params, null);
 		return result;
 	}
 	

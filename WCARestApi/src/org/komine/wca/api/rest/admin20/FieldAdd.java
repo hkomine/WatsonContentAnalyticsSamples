@@ -88,7 +88,7 @@ public class FieldAdd {
 		}
 
         // Make a HTTP request
-		String result = RestClient.makeRestRequest(METHOD_COLLECTION_ADD, hostname, port, PATH_COLLECTION_ADD, params, null, null, null);
+		String result = RestClient.makeRestRequest(METHOD_COLLECTION_ADD, hostname, port, PATH_COLLECTION_ADD, params, null);
 		return result;
 	}
 	

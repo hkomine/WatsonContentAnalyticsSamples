@@ -99,7 +99,7 @@ public class DocumentAddText {
         HttpEntity entity = mpEntityBuilder.build();
 
         // Make a HTTP request
-		String result = RestClient.makeRestRequest(METHOD_ADDTEXT, hostname, port, PATH_ADDTEXT, null, entity, null, null);
+		String result = RestClient.makeRestRequest(METHOD_ADDTEXT, hostname, port, PATH_ADDTEXT, null, entity);
 		return result;
 	}
 	

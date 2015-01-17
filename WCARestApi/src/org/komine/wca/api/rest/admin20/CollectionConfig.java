@@ -71,7 +71,7 @@ public class CollectionConfig {
 		params.put("collection", collection);
 
         // Make a HTTP request
-		String result = RestClient.makeRestRequest(METHOD_COLLECTION_CONFIG, hostname, port, PATH_COLLECTION_CONFIG, params, null, null, null);
+		String result = RestClient.makeRestRequest(METHOD_COLLECTION_CONFIG, hostname, port, PATH_COLLECTION_CONFIG, params, null);
 		return result;
 	}
 	
